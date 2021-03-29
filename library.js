@@ -1,3 +1,5 @@
+const { Options } = require('selenium-webdriver/chrome');
+
 var webdriver = require('selenium-webdriver'),
   By = webdriver.By,
   until = webdriver.until;
@@ -5,15 +7,16 @@ var webdriver = require('selenium-webdriver'),
   var driver = new webdriver.Builder().forBrowser('chrome').build();
   driver.get('https://library-app.firebaseapp.com');
 
-  driver.findElement(By.css('input')).then(function(el){
-    console.log("success " + el);
+  driver.findElement(By.css('input'));
+  driver.findElement(By.css('.btn-primary')).getText().then(function(txt){
+    console.log("The text of the button is: " + txt);
   });
-  driver.findElement(By.css('.btn-primary')).then(function(el){
-    console.log("found the button " + el);
-  });
-  // driver.findElement(By.css('.alert-success'));
-  driver.findElements(By.css('nav li')).then(function(array){
-    console.log("found the elements you wanted " + array);
+  driver.findElements(By.css('nav li')).then(function(elements){
+    elements.map(function(el){
+      el.getText().then(function(txt){
+        console.log("the text of the navbar element is: " + txt);
+      });
+    });
   });
 
 
