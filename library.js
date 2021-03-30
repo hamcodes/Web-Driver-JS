@@ -6,22 +6,18 @@ var webdriver = require('selenium-webdriver'),
 
   var driver = new webdriver.Builder().forBrowser('chrome').build();
   driver.get('https://library-app.firebaseapp.com');
-
-  driver.findElement(By.css('input'));
-  driver.findElement(By.css('.btn-primary')).getText().then(function(txt){
-    console.log("The text of the button is: " + txt);
+  driver.findElement(By.css('input')).sendKeys('user@email.com');
+  driver.findElement(By.css('.btn-primary')).click();
+  driver.wait(until.elementLocated(By.css('.alert-success')), 5000);
+  driver.findElement(By.css('.alert')).getText().then(function(txt){
+    console.log("Alert success text is: " + txt);
   });
-  driver.findElements(By.css('nav li')).then(function(elements){
-    elements.map(function(el){
-      el.getText().then(function(txt){
-        console.log("the text of the navbar element is: " + txt);
-      });
-    });
-  });
-
 
 
 
   // driver.sleep(10000);
   // driver.quit();
 
+
+
+  
